@@ -1,0 +1,21 @@
+.venv/
+venv/
+backend/venv/
+__pycache__/
+*.py[cod]
+
+# Local generated data
+vectordb/
+backend/vectordb/
+backend/data/*.pdf
+
+# Environment and editor files
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+
+# OS files
+Thumbs.db
+.DS_Store
