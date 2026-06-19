@@ -76,3 +76,9 @@ git branch -M main
 git remote add origin <your-repository-url>
 git push -u origin main
 ```
+DEMO SCREEN SHORTS:
+<img width="1918" height="915" alt="Screenshot 2026-06-19 094123" src="https://github.com/user-attachments/assets/24dcd693-4aa5-4909-9ae7-7d6627697c79" />
+<img width="1918" height="917" alt="Screenshot 2026-06-19 094147" src="https://github.com/user-attachments/assets/345f2bf1-9b89-4d17-ae89-2f4ead966366" />
+<img width="1915" height="913" alt="Screenshot 2026-06-19 094303" src="https://github.com/user-attachments/assets/8cd07cc4-1cc2-43e0-a4ee-6fad7522eddd" />
+
+
