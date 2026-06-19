@@ -220,7 +220,6 @@ Ask medical questions and receive context-aware responses from the RAG pipeline.
 
 ## 📸 Demo
 
-### Chat Interface
 HOME:
 <img width="1918" height="915" alt="Screenshot 2026-06-19 094123" src="https://github.com/user-attachments/assets/fbe40f84-cb0d-407a-a0f2-a77073d0cc44" />
 
