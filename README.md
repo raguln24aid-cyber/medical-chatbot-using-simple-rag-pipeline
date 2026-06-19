@@ -221,20 +221,18 @@ Ask medical questions and receive context-aware responses from the RAG pipeline.
 ## 📸 Demo
 
 ### Chat Interface
+HOME:
+<img width="1918" height="915" alt="Screenshot 2026-06-19 094123" src="https://github.com/user-attachments/assets/fbe40f84-cb0d-407a-a0f2-a77073d0cc44" />
 
-Add screenshots here:
+CHAT INTEFACE:
+<img width="1918" height="917" alt="Screenshot 2026-06-19 094147" src="https://github.com/user-attachments/assets/5926f5fd-ea35-4886-9d53-ba6c7d0a5826" />
 
-* Screenshot 1
-* Screenshot 2
-* Screenshot 3
+OUTPUT:
+<img width="1915" height="913" alt="Screenshot 2026-06-19 094303" src="https://github.com/user-attachments/assets/02fa5aea-d819-419d-880b-10e512131e1d" />
 
-Example:
 
-![Home](images/demo1.png)
 
-![Chat](images/demo2.png)
 
-![Response](images/demo3.png)
 
 ---
 
