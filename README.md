@@ -80,52 +80,100 @@ RETRIVAL EVALUATION
 
 Q: What are the symptoms of anemia?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What causes asthma attacks?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What is an abscess and how does it form?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What are the common treatments for acne?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: How is AIDS transmitted?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What are the effects of chronic alcoholism on the body?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What triggers an allergic reaction?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What are the early signs of Alzheimer's disease?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What is an aneurysm and why is it dangerous?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What causes angina pain?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What are the symptoms of anorexia nervosa?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: How do antibiotics work against bacteria?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What are common symptoms of anxiety disorders?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What are the warning signs of appendicitis?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What is the difference between osteoarthritis and rheumatoid arthritis?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What causes atherosclerosis?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What are the characteristics of autism spectrum disorder?
   Retrieved 0/3 relevant chunks | Precision@3=0.00 | RR=0.00
+
+
 Q: What are common causes of lower back pain?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What is Bell's palsy and what causes it?
   Retrieved 0/3 relevant chunks | Precision@3=0.00 | RR=0.00
+
+
 Q: What is a biopsy used for?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What are the mood patterns in bipolar disorder?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What is considered high blood pressure?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: What are the symptoms of bronchitis?
   Retrieved 3/3 relevant chunks | Precision@3=1.00 | RR=1.00
+
+
 Q: How are burns classified by severity?
   Retrieved 0/3 relevant chunks | Precision@3=0.00 | RR=0.00
+
+
 
 === Aggregate Manual Retrieval Metrics ===
 Mean Precision@3: 0.875
