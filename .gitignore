@@ -3,6 +3,7 @@ venv/
 backend/venv/
 __pycache__/
 *.py[cod]
+.venv311/
 
 # Local generated data
 vectordb/
