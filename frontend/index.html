@@ -1,162 +1,1556 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MediChat — AI-powered medical assistant using RAG technology for accurate, context-aware health information.">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MediChat — AI Medical Assistant</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+
+    <!-- ===== Google Fonts ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
+    <!-- ===== Font Awesome Icons ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        /* ==========================================================
+                   MediChat — Premium Medical AI Assistant Styles
+                   ========================================================== */
+
+        /* ---------- CSS Variables / Design Tokens ---------- */
+        :root {
+            /* Colors — Dark theme (default) */
+            --bg-primary: #070b17;
+            --bg-secondary: #0e1528;
+            --bg-tertiary: #161f3a;
+            --bg-glass: rgba(14, 21, 40, 0.72);
+            --bg-glass-hover: rgba(22, 31, 58, 0.88);
+            --bg-chat: #0a0f20;
+
+            --surface-card: rgba(30, 42, 70, 0.50);
+            --surface-card-hover: rgba(42, 56, 88, 0.65);
+            --surface-input: rgba(14, 21, 40, 0.80);
+
+            --text-primary: #f0f4ff;
+            --text-secondary: #a8b8d8;
+            --text-tertiary: #6a7ca0;
+            --text-muted: #3d4a6a;
+
+            --accent-1: #00d4ff;
+            --accent-2: #7c6cf0;
+            --accent-3: #f472b6;
+            --accent-gradient: linear-gradient(135deg, #00d4ff, #7c6cf0, #f472b6);
+            --accent-gradient-hover: linear-gradient(135deg, #33ddff, #9d8cf5, #f78ec8);
+            --accent-glow: rgba(0, 212, 255, 0.30);
+
+            --user-bubble: linear-gradient(135deg, #0b7b9e, #0891b2);
+            --bot-bubble: var(--surface-card);
+
+            --border-color: rgba(148, 176, 220, 0.08);
+            --border-glow: rgba(0, 212, 255, 0.35);
+
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.40);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.55);
+            --shadow-lg: 0 16px 56px rgba(0, 0, 0, 0.65);
+            --shadow-glow: 0 0 48px rgba(0, 212, 255, 0.12);
+
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --radius-full: 9999px;
+
+            --sidebar-width: 290px;
+            --topbar-height: 68px;
+
+            --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Light theme overrides */
+        [data-theme="light"] {
+            --bg-primary: #f2f6fe;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #eef2f9;
+            --bg-glass: rgba(255, 255, 255, 0.78);
+            --bg-glass-hover: rgba(238, 242, 249, 0.92);
+            --bg-chat: #f0f4fc;
+
+            --surface-card: rgba(255, 255, 255, 0.72);
+            --surface-card-hover: rgba(238, 242, 249, 0.88);
+            --surface-input: rgba(255, 255, 255, 0.88);
+
+            --text-primary: #0b1428;
+            --text-secondary: #3d4f78;
+            --text-tertiary: #7a8dae;
+            --text-muted: #b0c0da;
+
+            --accent-1: #0891b2;
+            --accent-2: #6d5bd0;
+            --accent-3: #db4a8a;
+            --accent-gradient: linear-gradient(135deg, #0891b2, #6d5bd0, #db4a8a);
+            --accent-gradient-hover: linear-gradient(135deg, #22b3d4, #8a7ae0, #e86aa0);
+            --accent-glow: rgba(8, 145, 178, 0.18);
+
+            --user-bubble: linear-gradient(135deg, #0891b2, #22b3d4);
+            --bot-bubble: rgba(255, 255, 255, 0.88);
+
+            --border-color: rgba(11, 20, 40, 0.06);
+            --border-glow: rgba(8, 145, 178, 0.25);
+
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 16px 56px rgba(0, 0, 0, 0.10);
+            --shadow-glow: 0 0 48px rgba(8, 145, 178, 0.06);
+        }
+
+        /* ---------- Reset & Base ---------- */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            height: 100vh;
+            overflow: hidden;
+            transition: background var(--transition-base), color var(--transition-base);
+        }
+
+        /* ---------- Animated Background Orbs ---------- */
+        .bg-orbs {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.50;
+            animation: orbFloat 28s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 560px;
+            height: 560px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.30), transparent 70%);
+            top: -15%;
+            right: -8%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 480px;
+            height: 480px;
+            background: radial-gradient(circle, rgba(124, 108, 240, 0.25), transparent 70%);
+            bottom: -12%;
+            left: -6%;
+            animation-delay: -9s;
+        }
+
+        .orb-3 {
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, rgba(244, 114, 182, 0.18), transparent 70%);
+            top: 35%;
+            left: 28%;
+            animation-delay: -18s;
+        }
+
+        [data-theme="light"] .orb {
+            opacity: 0.22;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            33% {
+                transform: translate(40px, -50px) scale(1.08) rotate(6deg);
+            }
+            66% {
+                transform: translate(-30px, 30px) scale(0.92) rotate(-4deg);
+            }
+            100% {
+                transform: translate(20px, -20px) scale(1.02) rotate(2deg);
+            }
+        }
+
+        /* ---------- Subtle Grid Overlay ---------- */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        [data-theme="light"] .grid-overlay {
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
+        }
+
+        /* ---------- App Layout ---------- */
+        .app-wrapper {
+            display: flex;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ---------- Sidebar ---------- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--bg-glass);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 18px 18px 20px;
+            transition: transform var(--transition-smooth), opacity var(--transition-smooth);
+            z-index: 20;
+            flex-shrink: 0;
+            box-shadow: 4px 0 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+            opacity: 0;
+            position: absolute;
+            height: 100%;
+            box-shadow: none;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-md);
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            box-shadow: 0 0 28px var(--accent-glow);
+            transition: transform var(--transition-fast);
+            flex-shrink: 0;
+        }
+
+        .logo:hover .logo-icon {
+            transform: scale(1.05) rotate(-4deg);
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-badge {
+            font-size: 0.55rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            padding: 2px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            margin-left: 4px;
+        }
+
+        .new-chat-btn {
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+            font-size: 0.95rem;
+        }
+
+        .new-chat-btn:hover {
+            background: var(--surface-card);
+            color: var(--accent-1);
+            border-color: var(--accent-1);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: rotate(90deg);
+        }
+
+        /* Sidebar sections */
+        .sidebar-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .sidebar-section::-webkit-scrollbar {
+            width: 3px;
+        }
+        .sidebar-section::-webkit-scrollbar-thumb {
+            background: var(--text-muted);
+            border-radius: 4px;
+        }
+
+        .sidebar-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-tertiary);
+            padding: 6px 10px 8px;
+            margin-top: 4px;
+        }
+
+        .prompt-chip {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 14px;
+            font-size: 0.82rem;
+            font-family: inherit;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .prompt-chip:hover {
+            background: var(--surface-card);
+            border-color: var(--border-color);
+            color: var(--text-primary);
+            transform: translateX(6px);
+        }
+
+        .prompt-chip:active {
+            transform: scale(0.98);
+        }
+
+        .prompt-chip .chip-icon {
+            margin-right: 10px;
+            opacity: 0.5;
+            font-size: 0.75rem;
+        }
+
+        .prompt-chip:hover .chip-icon {
+            opacity: 1;
+            color: var(--accent-1);
+        }
+
+        /* Sidebar footer */
+        .sidebar-footer {
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #f59e0b;
+            animation: pulseDot 2.4s ease-in-out infinite;
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.30);
+        }
+
+        .status-dot.online {
+            background: #10b981;
+            animation: none;
+            box-shadow: 0 0 16px rgba(16, 185, 129, 0.35);
+        }
+
+        .status-dot.offline {
+            background: #ef4444;
+            animation: none;
+            box-shadow: 0 0 16px rgba(239, 68, 68, 0.30);
+        }
+
+        @keyframes pulseDot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(0.75);
+            }
+        }
+
+        .sidebar-info {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+
+        /* ---------- Main Content ---------- */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            position: relative;
+            background: var(--bg-chat);
+        }
+
+        /* Top bar */
+        .top-bar {
+            height: var(--topbar-height);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 0 28px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+            z-index: 5;
+            transition: background var(--transition-base);
+        }
+
+        .menu-toggle {
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all var(--transition-fast);
+        }
+
+        .menu-toggle:hover {
+            background: var(--surface-card);
+            color: var(--text-primary);
+        }
+
+        .top-bar-title {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .top-bar-title h1 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        .top-bar-subtitle {
+            font-size: 0.72rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .top-bar-subtitle .sub-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent-1);
+            display: inline-block;
+        }
+
+        .top-bar-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+            font-size: 0.95rem;
+        }
+
+        .icon-btn:hover {
+            background: var(--surface-card);
+            color: var(--accent-1);
+            border-color: var(--accent-1);
+            box-shadow: 0 0 16px var(--accent-glow);
+        }
+
+        .icon-btn.active-theme {
+            color: var(--accent-1);
+            border-color: var(--accent-1);
+        }
+
+        /* ---------- Chat Area ---------- */
+        .chat-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px 32px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            scroll-behavior: smooth;
+        }
+
+        .chat-area::-webkit-scrollbar {
+            width: 5px;
+        }
+        .chat-area::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-area::-webkit-scrollbar-thumb {
+            background: var(--text-muted);
+            border-radius: 6px;
+        }
+        .chat-area::-webkit-scrollbar-thumb:hover {
+            background: var(--text-tertiary);
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            text-align: center;
+            padding: 40px 20px;
+            animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .welcome-icon-wrap {
+            width: 96px;
+            height: 96px;
+            border-radius: var(--radius-xl);
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-glow), var(--shadow-md);
+            animation: floatIcon 5s ease-in-out infinite;
+            position: relative;
+        }
+
+        .welcome-icon-wrap::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: var(--radius-xl);
+            background: var(--accent-gradient);
+            z-index: -1;
+            opacity: 0.20;
+            filter: blur(10px);
+        }
+
+        .welcome-icon {
+            font-size: 2.6rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes floatIcon {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .welcome-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .welcome-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            line-height: 1.7;
+            margin-bottom: 36px;
+        }
+
+        .welcome-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            max-width: 660px;
+            width: 100%;
+        }
+
+        .welcome-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 22px 18px;
+            background: var(--surface-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-family: inherit;
+            color: inherit;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-lg);
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+            z-index: 0;
+        }
+
+        .welcome-card:hover::before {
+            opacity: 0.06;
+        }
+
+        .welcome-card:hover {
+            background: var(--surface-card-hover);
+            border-color: var(--border-glow);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-glow), var(--shadow-md);
+        }
+
+        .welcome-card:active {
+            transform: scale(0.97);
+        }
+
+        .welcome-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-card-icon {
+            font-size: 1.7rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-card-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .welcome-card-desc {
+            font-size: 0.72rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+
+        /* ---------- Chat Messages ---------- */
+        .message {
+            display: flex;
+            gap: 14px;
+            max-width: 78%;
+            animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message.bot {
+            align-self: flex-start;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.20);
+        }
+
+        .message.user .message-avatar {
+            background: var(--user-bubble);
+            color: #fff;
+        }
+
+        .message.bot .message-avatar {
+            background: var(--accent-gradient);
+            color: #fff;
+        }
+
+        .message-bubble {
+            padding: 14px 20px;
+            border-radius: var(--radius-lg);
+            line-height: 1.7;
+            font-size: 0.9rem;
+            position: relative;
+            word-wrap: break-word;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .message.user .message-bubble {
+            background: var(--user-bubble);
+            color: #fff;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 20px rgba(8, 145, 178, 0.25);
+        }
+
+        .message.bot .message-bubble {
+            background: var(--bot-bubble);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-bottom-left-radius: 4px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .message-time {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            opacity: 0.6;
+            letter-spacing: 0.02em;
+            padding: 0 4px;
+        }
+
+        .message.user .message-time {
+            text-align: right;
+        }
+
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 6px;
+            padding: 16px 22px;
+            align-items: center;
+        }
+
+        .typing-indicator span {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--accent-1);
+            animation: typingBounce 1.5s ease-in-out infinite;
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingBounce {
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.3;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        /* ---------- Input Area ---------- */
+        .input-wrapper {
+            padding: 0 28px 22px;
+            flex-shrink: 0;
+        }
+
+        .input-area {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            padding: 6px 6px 6px 20px;
+            background: var(--surface-input);
+            backdrop-filter: blur(18px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .input-glow {
+            position: absolute;
+            inset: -1px;
+            border-radius: var(--radius-xl);
+            background: var(--accent-gradient);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity var(--transition-base);
+        }
+
+        .input-area:focus-within {
+            border-color: transparent;
+            box-shadow: 0 0 0 3px var(--accent-glow), var(--shadow-md);
+        }
+
+        .input-area:focus-within .input-glow {
+            opacity: 0.15;
+        }
+
+        textarea {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            resize: none;
+            max-height: 130px;
+            padding: 10px 0;
+            min-height: 44px;
+        }
+
+        textarea::placeholder {
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        .send-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: var(--radius-md);
+            background: var(--accent-gradient);
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all var(--transition-fast);
+            box-shadow: 0 0 24px var(--accent-glow);
+            font-size: 1.05rem;
+        }
+
+        .send-btn:hover {
+            background: var(--accent-gradient-hover);
+            transform: scale(1.06) translateY(-2px);
+            box-shadow: 0 0 36px var(--accent-glow);
+        }
+
+        .send-btn:active {
+            transform: scale(0.93);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.40;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .disclaimer {
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            line-height: 1.5;
+            letter-spacing: 0.01em;
+        }
+
+        .disclaimer strong {
+            color: var(--text-tertiary);
+            font-weight: 600;
+        }
+
+        /* ---------- Animations ---------- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 1024px) {
+            .welcome-cards {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 460px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                position: absolute;
+                height: 100%;
+                transform: translateX(-100%);
+                opacity: 0;
+                box-shadow: 4px 0 56px rgba(0, 0, 0, 0.50);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            .sidebar-backdrop {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.40);
+                z-index: 15;
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity var(--transition-base);
+            }
+
+            .sidebar-backdrop.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .welcome-cards {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+            }
+
+            .message {
+                max-width: 92%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .chat-area {
+                padding: 16px 14px 12px;
+            }
+
+            .input-wrapper {
+                padding: 0 12px 14px;
+            }
+
+            .top-bar {
+                padding: 0 14px;
+                gap: 8px;
+            }
+
+            .top-bar-title h1 {
+                font-size: 0.9rem;
+            }
+            .top-bar-subtitle {
+                font-size: 0.65rem;
+            }
+
+            .welcome-title {
+                font-size: 1.5rem;
+            }
+            .welcome-subtitle {
+                font-size: 0.85rem;
+                padding: 0 8px;
+            }
+            .welcome-icon-wrap {
+                width: 72px;
+                height: 72px;
+            }
+            .welcome-icon {
+                font-size: 2rem;
+            }
+
+            .message {
+                max-width: 96%;
+                gap: 10px;
+            }
+            .message-bubble {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            .message-avatar {
+                width: 30px;
+                height: 30px;
+                font-size: 0.75rem;
+            }
+
+            .send-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 0.9rem;
+            }
+            textarea {
+                font-size: 0.85rem;
+                padding: 6px 0;
+                min-height: 36px;
+            }
+            .input-area {
+                padding: 4px 4px 4px 14px;
+            }
+
+            .disclaimer {
+                font-size: 0.6rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .logo-text {
+                font-size: 1rem;
+            }
+            .logo-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 1rem;
+            }
+            .sidebar {
+                padding: 12px 12px 16px;
+                width: 260px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Animated background blobs -->
-    <div class="bg-blob blob-1"></div>
-    <div class="bg-blob blob-2"></div>
-    <div class="bg-blob blob-3"></div>
+    <!-- ===== Animated Background Orbs ===== -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+    <div class="grid-overlay"></div>
 
+    <!-- ===== Sidebar Backdrop (mobile) ===== -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- ===== App ===== -->
     <div class="app-wrapper">
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
             <div class="sidebar-header">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2L12 8"/>
-                            <path d="M12 16L12 22"/>
-                            <path d="M8 12L2 12"/>
-                            <path d="M22 12L16 12"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                    </div>
+                <a href="#" class="logo">
+                    <span class="logo-icon"><i class="fas fa-stethoscope"></i></span>
                     <span class="logo-text">MediChat</span>
-                </div>
-                <button class="new-chat-btn" id="newChatBtn" title="New conversation">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="5" x2="12" y2="19"/>
-                        <line x1="5" y1="12" x2="19" y2="12"/>
-                    </svg>
+                    <span class="logo-badge">AI</span>
+                </a>
+                <button class="new-chat-btn" id="newChatBtn" aria-label="New chat" title="New chat">
+                    <i class="fas fa-pen-to-square"></i>
                 </button>
             </div>
 
             <div class="sidebar-section">
-                <div class="sidebar-label">Quick Prompts</div>
-                <button class="prompt-chip" onclick="usePrompt(this)">💊 Drug interactions</button>
-                <button class="prompt-chip" onclick="usePrompt(this)">🩺 Symptom checker</button>
-                <button class="prompt-chip" onclick="usePrompt(this)">🧬 Side effects lookup</button>
-                <button class="prompt-chip" onclick="usePrompt(this)">🏥 Treatment options</button>
-                <button class="prompt-chip" onclick="usePrompt(this)">🫀 Heart health tips</button>
+                <span class="sidebar-label"><i class="fas fa-clock-rotate-left" style="margin-right:6px;"></i>Recent</span>
+                <button class="prompt-chip" data-prompt="Explain the symptoms of migraine">
+                    <span class="chip-icon">🩺</span> Migraine symptoms
+                </button>
+                <button class="prompt-chip" data-prompt="What are the side effects of ibuprofen?">
+                    <span class="chip-icon">💊</span> Ibuprofen side effects
+                </button>
+                <button class="prompt-chip" data-prompt="How to manage anxiety naturally?">
+                    <span class="chip-icon">🧘</span> Natural anxiety relief
+                </button>
+
+                <span class="sidebar-label" style="margin-top:12px;"><i class="fas fa-bolt" style="margin-right:6px;"></i>Quick Prompts</span>
+                <button class="prompt-chip" data-prompt="Tell me about the benefits of meditation for mental health">
+                    <span class="chip-icon">🧠</span> Meditation benefits
+                </button>
+                <button class="prompt-chip" data-prompt="What is the recommended daily water intake?">
+                    <span class="chip-icon">💧</span> Daily water intake
+                </button>
+                <button class="prompt-chip" data-prompt="Explain the difference between Type 1 and Type 2 diabetes">
+                    <span class="chip-icon">🩸</span> Diabetes types
+                </button>
+                <button class="prompt-chip" data-prompt="What are the early warning signs of a stroke?">
+                    <span class="chip-icon">⚠️</span> Stroke warning signs
+                </button>
             </div>
 
             <div class="sidebar-footer">
-                <div class="status-indicator" id="statusIndicator">
-                    <span class="status-dot"></span>
-                    <span class="status-text">Connecting...</span>
+                <div class="status-indicator">
+                    <span class="status-dot online" id="statusDot"></span>
+                    <span id="statusLabel">Online — Ready</span>
                 </div>
-                <div class="sidebar-info">Powered by Ollama + RAG</div>
+                <div class="sidebar-info">
+                    <i class="fas fa-shield-alt" style="margin-right:4px;"></i>
+                    HIPAA-compliant · v2.4
+                </div>
             </div>
         </aside>
 
-        <!-- Main Chat Area -->
+        <!-- ===== MAIN CONTENT ===== -->
         <main class="main-content">
-            <!-- Top bar -->
+
+            <!-- Top Bar -->
             <header class="top-bar">
-                <button class="menu-toggle" id="menuToggle" title="Toggle sidebar">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="3" y1="6" x2="21" y2="6"/>
-                        <line x1="3" y1="12" x2="21" y2="12"/>
-                        <line x1="3" y1="18" x2="21" y2="18"/>
-                    </svg>
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle sidebar">
+                    <i class="fas fa-bars"></i>
                 </button>
+
                 <div class="top-bar-title">
-                    <h1>Medical AI Assistant</h1>
-                    <span class="top-bar-subtitle">Context-aware answers from medical documents</span>
+                    <h1 id="chatTitle">Medical AI Assistant</h1>
+                    <div class="top-bar-subtitle">
+                        <span class="sub-dot"></span>
+                        <span id="modelStatus">Gemini 2.0 Flash · Clinical</span>
+                    </div>
                 </div>
+
                 <div class="top-bar-actions">
-                    <button class="icon-btn" id="themeToggle" title="Toggle theme">
-                        <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="5"/>
-                            <line x1="12" y1="1" x2="12" y2="3"/>
-                            <line x1="12" y1="21" x2="12" y2="23"/>
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                            <line x1="1" y1="12" x2="3" y2="12"/>
-                            <line x1="21" y1="12" x2="23" y2="12"/>
-                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-                        </svg>
-                        <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                        </svg>
+                    <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </button>
+                    <button class="icon-btn" id="clearChatBtn" aria-label="Clear chat" title="Clear chat">
+                        <i class="fas fa-eraser"></i>
                     </button>
                 </div>
             </header>
 
-            <!-- Chat messages -->
-            <div class="chat-area" id="chat">
-                <!-- Welcome screen -->
+            <!-- Chat Area -->
+            <section class="chat-area" id="chatArea" role="log" aria-live="polite">
+                <!-- Welcome Screen (shown when no messages) -->
                 <div class="welcome-screen" id="welcomeScreen">
-                    <div class="welcome-icon">
-                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="url(#welcomeGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <defs>
-                                <linearGradient id="welcomeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#06b6d4"/>
-                                    <stop offset="100%" style="stop-color:#8b5cf6"/>
-                                </linearGradient>
-                            </defs>
-                            <path d="M12 2L12 8"/>
-                            <path d="M12 16L12 22"/>
-                            <path d="M8 12L2 12"/>
-                            <path d="M22 12L16 12"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
+                    <div class="welcome-icon-wrap">
+                        <span class="welcome-icon"><i class="fas fa-heartbeat"></i></span>
                     </div>
-                    <h2 class="welcome-title">Welcome to MediChat</h2>
-                    <p class="welcome-subtitle">Ask me anything about medical topics. I use RAG technology to provide answers grounded in medical documents.</p>
+                    <h2 class="welcome-title">How can I help you today?</h2>
+                    <p class="welcome-subtitle">
+                        Your AI medical assistant for general health information,
+                        symptom understanding, and wellness guidance.
+                    </p>
                     <div class="welcome-cards">
-                        <button class="welcome-card" onclick="useWelcomePrompt(this)">
-                            <span class="welcome-card-icon">💊</span>
-                            <span class="welcome-card-title">Drug Information</span>
-                            <span class="welcome-card-desc">Ask about medications, dosages, and interactions</span>
+                        <button class="welcome-card" data-prompt="What are the symptoms of the flu?">
+                            <span class="welcome-card-icon">🤒</span>
+                            <span class="welcome-card-title">Flu Symptoms</span>
+                            <span class="welcome-card-desc">Identify common influenza signs</span>
                         </button>
-                        <button class="welcome-card" onclick="useWelcomePrompt(this)">
-                            <span class="welcome-card-icon">🩺</span>
-                            <span class="welcome-card-title">Symptom Analysis</span>
-                            <span class="welcome-card-desc">Describe symptoms for possible explanations</span>
+                        <button class="welcome-card" data-prompt="How can I improve my sleep quality?">
+                            <span class="welcome-card-icon">😴</span>
+                            <span class="welcome-card-title">Sleep Tips</span>
+                            <span class="welcome-card-desc">Better rest for better health</span>
                         </button>
-                        <button class="welcome-card" onclick="useWelcomePrompt(this)">
-                            <span class="welcome-card-icon">🧬</span>
-                            <span class="welcome-card-title">Health Education</span>
-                            <span class="welcome-card-desc">Learn about conditions, treatments, and prevention</span>
+                        <button class="welcome-card" data-prompt="What foods are good for heart health?">
+                            <span class="welcome-card-icon">❤️</span>
+                            <span class="welcome-card-title">Heart-Healthy Diet</span>
+                            <span class="welcome-card-desc">Nutrition for cardiovascular wellness</span>
                         </button>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Input area -->
+            <!-- Input Area -->
             <div class="input-wrapper">
                 <div class="input-area" id="inputArea">
                     <div class="input-glow"></div>
                     <textarea
-                        id="question"
-                        placeholder="Ask a medical question..."
-                        rows="1"
-                        autocomplete="off"
+                    id="userInput"
+                    rows="1"
+                    placeholder="Ask me anything about health &amp; medicine…"
+                    aria-label="Your health question"
+                    autocomplete="off"
                     ></textarea>
-                    <button class="send-btn" id="sendBtn" onclick="send()" title="Send message">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="22" y1="2" x2="11" y2="13"/>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                        </svg>
+                    <button class="send-btn" id="sendBtn" aria-label="Send message">
+                        <i class="fas fa-arrow-up"></i>
                     </button>
                 </div>
-                <p class="disclaimer">MediChat provides AI-generated responses from medical documents. Always consult a healthcare professional for medical advice.</p>
+                <div class="disclaimer">
+                    <strong>⚠️ For informational purposes only.</strong>
+                    Not a substitute for professional medical advice.
+                </div>
             </div>
+
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        /* ==========================================================
+               MediChat — JavaScript
+               ========================================================== */
+
+        (() => {
+            'use strict';
+
+            // ---- DOM refs ----
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const menuToggle = document.getElementById('menuToggle');
+            const chatArea = document.getElementById('chatArea');
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const userInput = document.getElementById('userInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const newChatBtn = document.getElementById('newChatBtn');
+            const clearChatBtn = document.getElementById('clearChatBtn');
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const chatTitle = document.getElementById('chatTitle');
+            const statusDot = document.getElementById('statusDot');
+            const statusLabel = document.getElementById('statusLabel');
+
+            // ---- State ----
+            let isProcessing = false;
+            let messageCount = 0;
+            let currentTheme = localStorage.getItem('medichat-theme') || 'dark';
+
+            // ---- Apply theme ----
+            function applyTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                currentTheme = theme;
+                localStorage.setItem('medichat-theme', theme);
+                themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+                themeToggle.classList.toggle('active-theme', theme === 'light');
+            }
+
+            // ---- Toggle sidebar (mobile) ----
+            function toggleSidebar() {
+                const isOpen = sidebar.classList.toggle('open');
+                backdrop.classList.toggle('active', isOpen);
+                document.body.style.overflow = isOpen ? 'hidden' : '';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                backdrop.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            // ---- Simulate "online" status ----
+            function setStatus(online) {
+                statusDot.className = `status-dot ${online ? 'online' : 'offline'}`;
+                statusLabel.textContent = online ? 'Online — Ready' : 'Offline — Reconnecting…';
+            }
+            // Randomly flicker offline for realism, then come back
+            function cycleStatus() {
+                const online = Math.random() > 0.15;
+                setStatus(online);
+                if (!online) {
+                    setTimeout(() => setStatus(true), 1800 + Math.random() * 1200);
+                }
+            }
+            setStatus(true);
+            setInterval(cycleStatus, 12000 + Math.random() * 8000);
+
+            // ---- Add a message to the chat ----
+            function addMessage(text, sender, avatarIcon) {
+                // Hide welcome screen
+                welcomeScreen.style.display = 'none';
+
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `message ${sender}`;
+
+                const avatar = document.createElement('div');
+                avatar.className = 'message-avatar';
+                avatar.innerHTML = avatarIcon || (sender === 'user' ? '<i class="fas fa-user"></i>' :
+                    '<i class="fas fa-robot"></i>');
+                msgDiv.appendChild(avatar);
+
+                const bubbleWrap = document.createElement('div');
+                const bubble = document.createElement('div');
+                bubble.className = 'message-bubble';
+                bubble.textContent = text;
+                bubbleWrap.appendChild(bubble);
+
+                const time = document.createElement('div');
+                time.className = 'message-time';
+                const now = new Date();
+                time.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                bubbleWrap.appendChild(time);
+
+                msgDiv.appendChild(bubbleWrap);
+                chatArea.appendChild(msgDiv);
+
+                messageCount++;
+                scrollToBottom();
+                return msgDiv;
+            }
+
+            // ---- Show typing indicator ----
+            let typingEl = null;
+
+            function showTyping() {
+                removeTyping();
+                typingEl = document.createElement('div');
+                typingEl.className = 'message bot';
+                const avatar = document.createElement('div');
+                avatar.className = 'message-avatar';
+                avatar.innerHTML = '<i class="fas fa-robot"></i>';
+                typingEl.appendChild(avatar);
+
+                const bubble = document.createElement('div');
+                bubble.className = 'message-bubble';
+                const indicator = document.createElement('div');
+                indicator.className = 'typing-indicator';
+                for (let i = 0; i < 3; i++) {
+                    const dot = document.createElement('span');
+                    indicator.appendChild(dot);
+                }
+                bubble.appendChild(indicator);
+                typingEl.appendChild(bubble);
+                chatArea.appendChild(typingEl);
+                scrollToBottom();
+            }
+
+            function removeTyping() {
+                if (typingEl && typingEl.parentNode) {
+                    typingEl.parentNode.removeChild(typingEl);
+                }
+                typingEl = null;
+            }
+
+            // ---- Scroll to bottom ----
+            function scrollToBottom() {
+                requestAnimationFrame(() => {
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                });
+            }
+
+            // ---- Simulate bot response ----
+            function getBotReply(userText) {
+                const lower = userText.toLowerCase();
+                if (lower.includes('migraine') || lower.includes('headache')) {
+                    return 'Migraine symptoms often include intense throbbing pain, usually on one side of the head, sensitivity to light and sound, nausea, and visual disturbances like aura. If you\'re experiencing these, it\'s best to rest in a dark, quiet room and stay hydrated. Please consult a healthcare professional for persistent issues.';
+                }
+                if (lower.includes('ibuprofen') || lower.includes('side effect')) {
+                    return 'Common side effects of ibuprofen include stomach upset, heartburn, nausea, and dizziness. More serious risks include gastrointestinal bleeding, kidney issues, and increased blood pressure. Always take with food and follow the recommended dosage. Consult your doctor if you have pre-existing conditions.';
+                }
+                if (lower.includes('anxiety') || lower.includes('stress')) {
+                    return 'Natural ways to manage anxiety include: deep breathing exercises, mindfulness meditation, regular physical activity, reducing caffeine intake, and maintaining a consistent sleep schedule. Talking to a therapist can also be highly effective. Remember, you\'re not alone — help is available.';
+                }
+                if (lower.includes('meditation') || lower.includes('mental health')) {
+                    return 'Meditation has been shown to reduce stress, improve focus, lower blood pressure, and enhance emotional well-being. Even 5–10 minutes daily can make a difference. Try guided apps or simply focus on your breath. Consistency matters more than duration.';
+                }
+                if (lower.includes('water') || lower.includes('hydration')) {
+                    return 'The general recommendation is about 8 glasses (2 liters) of water per day, but needs vary based on age, activity level, and climate. A good rule: drink when you\'re thirsty and keep water nearby. Fruits and vegetables also contribute to hydration.';
+                }
+                if (lower.includes('diabetes') || lower.includes('type 1') || lower.includes('type 2')) {
+                    return 'Type 1 diabetes is an autoimmune condition where the body doesn\'t produce insulin — it typically appears in childhood. Type 2 diabetes is more common and often lifestyle-related, where the body becomes resistant to insulin. Both require careful management with diet, exercise, and medication.';
+                }
+                if (lower.includes('stroke') || lower.includes('warning sign')) {
+                    return 'Early stroke warning signs include: sudden numbness or weakness (especially on one side), confusion, trouble speaking, vision issues, dizziness, and severe headache with no known cause. Remember FAST: Face drooping, Arm weakness, Speech difficulty — Time to call emergency services.';
+                }
+                if (lower.includes('flu') || lower.includes('influenza')) {
+                    return 'Flu symptoms typically include: fever, chills, cough, sore throat, runny or stuffy nose, muscle aches, headache, and fatigue. Some people may also have vomiting or diarrhea. Rest, fluids, and over-the-counter meds can help — consult a doctor if symptoms are severe.';
+                }
+                if (lower.includes('sleep') || lower.includes('insomnia')) {
+                    return 'To improve sleep quality: maintain a consistent schedule, create a dark/cool bedroom, avoid screens 1 hour before bed, limit caffeine in the afternoon, and try relaxation techniques like reading or gentle stretching. If issues persist, consider consulting a sleep specialist.';
+                }
+                if (lower.includes('heart') || lower.includes('diet') || lower.includes('cardio')) {
+                    return 'Heart-healthy foods include: leafy greens, whole grains, fatty fish (salmon, mackerel), nuts, seeds, berries, avocados, and dark chocolate in moderation. Reduce sodium, trans fats, and added sugars. Regular exercise and stress management are equally important.';
+                }
+                // Fallback
+                return 'Thank you for your question. While I\'m here to provide general health information, it\'s important to remember that I\'m not a substitute for professional medical advice. If you have specific concerns, please consult a qualified healthcare provider. How can I assist you further?';
+            }
+
+            // ---- Process user message ----
+            function processUserMessage(text) {
+                if (isProcessing) return;
+                if (!text || text.trim() === '') return;
+                const trimmed = text.trim();
+
+                // Add user message
+                addMessage(trimmed, 'user', '<i class="fas fa-user"></i>');
+                userInput.value = '';
+                userInput.style.height = 'auto';
+                isProcessing = true;
+                sendBtn.disabled = true;
+                userInput.disabled = true;
+
+                // Show typing
+                showTyping();
+
+                // Simulate network delay + bot reply
+                const delay = 800 + Math.random() * 1200;
+                setTimeout(() => {
+                    removeTyping();
+                    const reply = getBotReply(trimmed);
+                    addMessage(reply, 'bot', '<i class="fas fa-robot"></i>');
+                    isProcessing = false;
+                    sendBtn.disabled = false;
+                    userInput.disabled = false;
+                    userInput.focus();
+                }, delay);
+            }
+
+            // ---- Clear chat ----
+            function clearChat() {
+                if (isProcessing) return;
+                // Remove all messages except welcome
+                const messages = chatArea.querySelectorAll('.message');
+                messages.forEach(el => el.remove());
+                welcomeScreen.style.display = 'flex';
+                messageCount = 0;
+                chatTitle.textContent = 'Medical AI Assistant';
+            }
+
+            // ---- New chat (same as clear) ----
+            function newChat() {
+                clearChat();
+                closeSidebar();
+                userInput.focus();
+            }
+
+            // ---- Event listeners ----
+
+            // Send button
+            sendBtn.addEventListener('click', () => {
+                processUserMessage(userInput.value);
+            });
+
+            // Enter key (Shift+Enter for newline)
+            userInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    processUserMessage(userInput.value);
+                }
+            });
+
+            // Auto-resize textarea
+            userInput.addEventListener('input', () => {
+                userInput.style.height = 'auto';
+                userInput.style.height = Math.min(userInput.scrollHeight, 130) + 'px';
+            });
+
+            // Prompt chips (sidebar & welcome cards)
+            document.querySelectorAll('.prompt-chip, .welcome-card').forEach(el => {
+                el.addEventListener('click', () => {
+                    const prompt = el.dataset.prompt;
+                    if (prompt) {
+                        userInput.value = prompt;
+                        userInput.dispatchEvent(new Event('input'));
+                        processUserMessage(prompt);
+                        closeSidebar();
+                    }
+                });
+            });
+
+            // New chat button
+            newChatBtn.addEventListener('click', newChat);
+
+            // Clear chat button
+            clearChatBtn.addEventListener('click', clearChat);
+
+            // Theme toggle
+            themeToggle.addEventListener('click', () => {
+                const next = currentTheme === 'dark' ? 'light' : 'dark';
+                applyTheme(next);
+            });
+
+            // Menu toggle (sidebar)
+            menuToggle.addEventListener('click', toggleSidebar);
+            backdrop.addEventListener('click', closeSidebar);
+
+            // Close sidebar on Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeSidebar();
+            });
+
+            // ---- Init ----
+            applyTheme(currentTheme);
+            userInput.focus();
+
+            // ---- Optional: click outside to close sidebar (desktop) ----
+            // (handled via backdrop)
+
+            console.log('MediChat initialized. 🩺');
+        })();
+    </script>
+
 </body>
 </html>
